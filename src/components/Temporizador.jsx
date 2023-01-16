@@ -33,8 +33,8 @@ function Temporizador() {
             }).map(([label, value]) =>{
               setJugadorTemporizador(value) 
                 return(
-                <div key={label} className="col-4">
-                    <div className="box">
+                <div key={label} className="text-[26px] flex justify-center items-center">
+                    <div className="text-white">
                         <p>{value===0?0:`00:${value}`}</p>
                         <span  className="text">{label}</span>
                      
