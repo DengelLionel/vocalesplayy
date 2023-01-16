@@ -1,5 +1,4 @@
-import { useContext } from 'react';
-import { VocalContext } from '../context/VocalContextMain';
+
 export const useFases=(jugadorTemporizador)=>{
     /* const TempoPlayer=()=>{
         JSON.parse(localStorage.getItem('playerTurno'))?.map(e=>{
@@ -21,8 +20,7 @@ export const useFases=(jugadorTemporizador)=>{
         })
     } */
     const FaseOne=()=>{
-        JSON.parse(localStorage.getItem('playerTurno'))?.map(e=>{
-            e.fase_palabra?.map(fase=>{
+        JSON.parse(localStorage.getItem('playerTurno'))?.map(e=> e.fase_palabra?.map(fase=>{
                 if(e.id===1&&fase.id===1&&e.cronometro!==0){
                     localStorage.setItem('playerTurnoFaseOne',JSON.stringify([ /* Es cuando le toca el turno */
                     {id:e.id,player:e.player,turno:e.turno,fase_palabra:{id:1,state:null,color:"bg-red-700",score:null,cronometro:jugadorTemporizador===0?0:"error"},nivel:"Nivel 1",
@@ -32,13 +30,12 @@ export const useFases=(jugadorTemporizador)=>{
                   
                 }
             })  
-        })
+        )
     }
     const FaseTwo=()=>{
-        JSON.parse(localStorage.getItem('playerTurno'))?.map(e=>{
+        JSON.parse(localStorage.getItem('playerTurno'))?.map(e=>
             e.fase_palabra?.map(fase=>{
-
-                if(e.id===2&&fase.id===2&&e.cronometro!==0){
+        if(e.id===2&&fase.id===2&&e.cronometro!==0){
                     JSON.parse(localStorage.getItem('playerTurnoOne'))?.map(one=>{
                         if(one.fase_palabra.cronometro===0){
                             localStorage.setItem('playerTurnoFaseTwo',JSON.stringify([ /* Es cuando le toca el turno */
@@ -50,7 +47,7 @@ export const useFases=(jugadorTemporizador)=>{
                     
                 }
             })  
-        })
+        )
     }
     const FaseThree=()=>{
 
