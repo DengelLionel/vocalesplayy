@@ -9,7 +9,7 @@ const Jugar = () => {
       <Temporizador/>
       <Jugador/>
       <ArrastrarPalabras/>
-     
+   
     </div>
     
   )
