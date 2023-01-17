@@ -91,6 +91,7 @@ export const Palabras=[
       {id:"2",consonante:"_"},
       {id:"3",consonante:"S"},
       {id:"4",consonante:"_"},
+      {id:"5",consonante:"_"},
   ],
   vocales:[
       {id:"1",vocal:"A"},

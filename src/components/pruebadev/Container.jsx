@@ -15,12 +15,16 @@ export const Container = memo(function Container() {
         /* RELACIONADO CON LA CANTIDAD DE VACIOS '_' DE CADA PALABRA */
             let valores=Palabras.map(cons=>cons.palabraIncompleta)
           let resul= valores.map(obj=>Object.values(obj).filter(consonante=>consonante.consonante==="_").length).reduce((acc,val)=>acc+val)
+          console.log("Res",resul)
           let coleccion=[]
-          for (let i=0;i<resul;i++){
-            coleccion.push(Object.assign({},container))
+          for (let i=0;i<=resul-1;i++){
+          
+            coleccion.push({...container})
+           
           }
+          console.log("is",coleccion)
           setDustbins((dustbins)=>[...dustbins,coleccion[0]])
-      
+         
       }
       useEffect(()=>{
         vacios()
