@@ -2,7 +2,7 @@ import React from 'react'
 import { useDrag } from 'react-dnd'
 const PictureVocal = ({alt,src,id}) => {
   const [{isDragging},drag]=useDrag(()=>({
-    type:"image",
+    type:"img",
     item:{id:id},
     collect:(monitor)=>({
       isDragging:!!monitor.isDragging()

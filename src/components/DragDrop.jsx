@@ -14,35 +14,35 @@ const  vocales=[
 ]
 
 const DragDrop = () => {
-    const [vocal,setVocal]=useState(vocales)
-    const [palabra,setPalabra]=useState(Palabras)
+   
+   
     const [board,setBoard]=useState([])
     const [{isOver},drop]=useDrop(()=>({
-        accept:"image",
+        accept:"img",
         drop:(item)=>addImageToBoard(item.id),
         collect:(monitor)=>({
             isOver:!!monitor.isOver()
           }),
     }))
     const addImageToBoard=(id)=>{
-        const pictureList=palabra.filter((picture)=>id===picture.id)
-        console.log("pic",pictureList)
-        setBoard((board)=>[...board,pictureList])
+        const pictureList=vocales.filter((picture)=>id===picture.id)
+        console.log("pic",pictureList[0])
+        setBoard((board)=>[...board,pictureList[0]])
     }
   return (
     <div>
         <section className='flex flex-row justify-center'>
-            {vocal?.map(voc=>(<PictureVocal alt={voc.vocal} id={voc.id} src={voc.img} />))}
+            {vocales?.map(voc=>(<PictureVocal alt={voc.vocal} id={voc.id} src={voc.img} />))}
         </section>
 
         <section className='flex flex-row justify-center gap-4 mt-[40px]'>
-        {palabra?.map(consonante=>consonante.palabraIncompleta?.map(incompleta=>
+        {Palabras?.map(consonante=>consonante.palabraIncompleta?.map(incompleta=>
             incompleta.consonante==="_"?(<ContenedorVocal board={board} Ref={drop}/>):(<h1 className='text-[100px] text-white font-bold'>{incompleta.consonante}</h1>)
            
         ))}
         </section>
         <section ref={drop} className='w-full h-[200px] bg-blue-600 flex flex-row justify-center gap-4 mt-[40px]'>
-        {board?.map((vocal)=>vocal?.map(vocc=>(<PictureVocal id={vocc.id} alt={vocc.vocal} src={vocc.img}  />)))}
+        {board?.map((vocal)=>(<PictureVocal id={vocal.id} alt={vocal.vocal} src={vocal.img}  />))}
         </section>
 
     </div>
