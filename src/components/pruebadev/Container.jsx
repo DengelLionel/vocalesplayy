@@ -10,27 +10,30 @@ export const Container = memo(function Container() {
         accepts: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5, NativeTypes.URL],
         lastDroppedItem: null,
       }
-     
+      
       const vacios=()=>{
         /* RELACIONADO CON LA CANTIDAD DE VACIOS '_' DE CADA PALABRA */
             let valores=Palabras.map(cons=>cons.palabraIncompleta)
           let resul= valores.map(obj=>Object.values(obj).filter(consonante=>consonante.consonante==="_").length).reduce((acc,val)=>acc+val)
           console.log("Res",resul)
           let coleccion=[]
+       
           for (let i=0;i<=resul-1;i++){
-          
-            coleccion.push({...container})
-           
+           coleccion.push({...container})
+
           }
           console.log("is",coleccion)
-          setDustbins((dustbins)=>[...dustbins,coleccion[0]])
+          return coleccion
+       
+      
          
       }
       useEffect(()=>{
-        vacios()
+        
       },[])
-
-  const [dustbins, setDustbins] = useState([])
+const [dub,setDub]=useState([])
+    
+  const [dustbins, setDustbins] = useState(vacios())
   console.log("drt",dustbins)
   const [boxes] = useState([
     {id:1,vocal:"A",img:"https://panamapoesia.com/image/a2.png",type:ItemTypes.VOCAL1},
