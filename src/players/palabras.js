@@ -1,40 +1,46 @@
- export const Palabras=[
-    {id:1,
-     fase:1,
-     palabraCompleta:"CASA",
-     vocales:[
-      
-      {id:"1",vocal:"A"},
-       {id:"2",vocal:"A"},
-      
-     ],
-     palabraIncompleta:[
+import { NativeTypes } from 'react-dnd-html5-backend'
+import { ItemTypes } from '../components/pruebadev/ItemTypes'
+const container={
+  accepts: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5, NativeTypes.URL],
+  lastDroppedItem: null,
+}
+export const Palabras2=[
+  {id:1,
+  fase:1,
+  palabraCompleta:"CASA",
+  palabraIncompleta:[
       {id:1,consonante:"C"},
-       {id:2,consonante:"_"},
+      {id:2,index:0,idItem:1, consonante: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5, NativeTypes.URL],
+        lastDroppedItem: null},
       {id:3,consonante:"S"},
-       {id:4,consonante:"_"},
      
-      ]
-   },
-  
-    ]
+      {id:4,index:1,idItem:2,consonante: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5, NativeTypes.URL],
+        lastDroppedItem: null},
+     
+  ],
 
-/*    const initialData = {
-    tasks: {
-      'task-1': { id: 'task-1', content: 'Take out the garbage' },
-      'task-2': { id: 'task-2', content: 'Watch my favorite show' },
-      'task-3': { id: 'task-3', content: 'Charge my phone' },
-      'task-4': { id: 'task-4', content: 'Cook dinner' },
-    },
-    columns: {
-      'column-1': {
-        id: 'column-1',
-        title: 'To do',
-        taskIds: ['task-1', 'task-2', 'task-3', 'task-4'],
-      },
-    },
-    // Facilitate reordering of the columns
-    columnOrder: ['column-1'],
-  };
-  
-  export default initialData; */
+  vocales:[
+      {id:"1",vocal:"A"},
+      {id:"2",vocal:"A"},    
+  ]
+  }
+]
+
+export const Palabras=[
+  {id:1,
+  fase:1,
+  palabraCompleta:"CASA",
+  palabraIncompleta:[
+      {id:1,consonante:"C"},
+      {id:2,consonante:"_"},
+      {id:3,consonante:"S"},
+      {id:4,consonante:"_"},
+
+     
+  ],
+  vocales:[
+      {id:"1",vocal:"A"},
+      {id:"2",vocal:"A"},    
+  ]
+  }
+]

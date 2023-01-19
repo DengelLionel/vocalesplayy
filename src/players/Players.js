@@ -1,3 +1,4 @@
+
 export const Players=[
     {
         id:1,
@@ -82,20 +83,5 @@ export const PlayerPlay=[ /* Es cuando le toca el turno */
   ], nivel:"Nivel 1",
   score:0}
 ]
-export const Palabras=[
-  {id:1,
-  fase:1,
-  palabraCompleta:"CASA",
-  palabraIncompleta:[
-      {id:"1",consonante:"C"},
-      {id:"2",consonante:"_"},
-      {id:"3",consonante:"S"},
-      {id:"4",consonante:"_"},
-      {id:"5",consonante:"_"},
-  ],
-  vocales:[
-      {id:"1",vocal:"A"},
-      {id:"2",vocal:"A"},    
-  ]
-  }
-]
+
+

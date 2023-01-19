@@ -4,37 +4,45 @@ import { NativeTypes } from 'react-dnd-html5-backend'
 import { Box } from './Box'
 import { Dustbin } from './Dustbin'
 import { ItemTypes } from './ItemTypes'
-import { Palabras } from '../../players/Players'
+import { Palabras,Palabras2 } from '../../players/palabras'
 export const Container = memo(function Container() {
     const container={
-        accepts: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5, NativeTypes.URL],
+        accepts: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5],
         lastDroppedItem: null,
       }
+    
+      console.log("Res",Palabras)
+  const vacios=()=>{
       
-      const vacios=()=>{
-        /* RELACIONADO CON LA CANTIDAD DE VACIOS '_' DE CADA PALABRA */
-            let valores=Palabras.map(cons=>cons.palabraIncompleta)
+           
+      let valores =Palabras.map(cons=>cons.palabraIncompleta)
           let resul= valores.map(obj=>Object.values(obj).filter(consonante=>consonante.consonante==="_").length).reduce((acc,val)=>acc+val)
-          console.log("Res",resul)
+         
           let coleccion=[]
        
           for (let i=0;i<=resul-1;i++){
            coleccion.push({...container})
 
-          }
-          console.log("is",coleccion)
+          } 
+          console.log("cokec",coleccion)
           return coleccion
-       
-      
          
       }
-      useEffect(()=>{
+      const Consonantes=()=>{
         
-      },[])
-const [dub,setDub]=useState([])
+          let valores=Palabras.map(cons=>cons.palabraIncompleta)
+          let resul= valores.map(obj=>Object.values(obj).filter(consonante=>consonante.consonante!=="_"))
+          console.log("consonante",resul[0])
+        return resul[0]
+      }
+      useEffect(()=>{
     
-  const [dustbins, setDustbins] = useState(vacios())
-  console.log("drt",dustbins)
+      },[])
+
+    
+  const [dustbins, setDustbins] = useState(Palabras2)
+
+ 
   const [boxes] = useState([
     {id:1,vocal:"A",img:"https://panamapoesia.com/image/a2.png",type:ItemTypes.VOCAL1},
         {id:2,vocal:"E",img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwi39mTyuOt-Z3z9Sg0rob8u7UHhFWZ4LgFQztL-3Xt88PsNyrmnHyflKLwPn-7nYipgs&usqp=CAU",type:ItemTypes.VOCAL2},
@@ -48,14 +56,25 @@ const [dub,setDub]=useState([])
     return droppedBoxNames.indexOf(boxName) > -1
   }
   const handleDrop = useCallback(
-    (index, item) => {
-        console.log('item',item)
-      const { vocal} = item
+    (index,idItem) => {
+     
+      const { vocal} =idItem
      
       setDroppedBoxNames(
         update(droppedBoxNames, vocal ? { $push: [vocal] } : { $push: [] }),
       )
       setDustbins(
+        update(dustbins, {palabraIncompleta:{
+          [index]: {
+            lastDroppedItem: {
+              $set:idItem,
+            },
+          },
+        } 
+         
+        }),
+      )
+    /*   setDustbins(
         update(dustbins, {
           [index]: {
             lastDroppedItem: {
@@ -63,10 +82,12 @@ const [dub,setDub]=useState([])
             },
           },
         }),
-      )
+      ) */
     },
     [droppedBoxNames, dustbins],
   )
+  console.log("p2",Palabras2)
+  console.log("dfaf",dustbins)
   return (
     <div>
         <div style={{ overflow: 'hidden', clear: 'both' }}>
@@ -82,16 +103,29 @@ const [dub,setDub]=useState([])
         ))}
       </div>
 
-      <div style={{ overflow: 'hidden', clear: 'both' }}>
-        {dustbins.map(({ accepts, lastDroppedItem }, index) => (
+      <div style={{ overflow: 'hidden', clear: 'both',display:'flex',flexDirection:'row',gap:'170px' }}>
+          
+        {dustbins.map((e) =>e.palabraIncompleta.map((inc)=>{ 
+            console.log("acccc",inc.accepts)
+          return(
           <Dustbin
-            accept={accepts}
-            lastDroppedItem={lastDroppedItem}
-            onDrop={(item) => handleDrop(index, item)}
-
-            key={index}
+            accept={inc.consonante!==String&&inc.consonante}
+            lastDroppedItem={inc.lastDroppedItem}
+            onDrop={(idItem)=> handleDrop(inc.index, inc.idItem)}
+            consonante={inc.consonante===String&&inc.consonante}
+            key={inc.index}
           />
-        ))}
+        )}))}
+       {/*  {dustbins.map(({ accepts, lastDroppedItem }, index) => (
+         
+         <Dustbin
+           accept={accepts}
+           lastDroppedItem={lastDroppedItem}
+           onDrop={(item) => handleDrop(index, item)}
+           consonante={Consonantes()}
+           key={index}
+         />
+       ))}  */}
       </div>
 
       
