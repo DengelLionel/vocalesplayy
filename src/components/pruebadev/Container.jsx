@@ -12,7 +12,7 @@ export const Container = memo(function Container() {
       }
     
       console.log("Res",Palabras)
-  const vacios=()=>{
+  /* const vacios=()=>{
       
            
       let valores =Palabras.map(cons=>cons.palabraIncompleta)
@@ -34,7 +34,7 @@ export const Container = memo(function Container() {
           let resul= valores.map(obj=>Object.values(obj).filter(consonante=>consonante.consonante!=="_"))
           console.log("consonante",resul[0])
         return resul[0]
-      }
+      } */
       useEffect(()=>{
     
       },[])
