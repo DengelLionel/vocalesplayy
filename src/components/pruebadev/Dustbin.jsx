@@ -1,6 +1,6 @@
 import { memo } from 'react'
 import { useDrop } from 'react-dnd'
-import { Palabras } from '../../players/palabras'
+
 import { NativeTypes } from 'react-dnd-html5-backend'
 import { ItemTypes } from './ItemTypes'
 const style = {
@@ -24,9 +24,9 @@ export const Dustbin = memo(function Dustbin({
   alt,
   consonante
 }) {
-  console.log("acc",accept)
+  
   const [{ isOver, canDrop }, drop] = useDrop({
-    accept:accept?accept:[ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5],
+    accept:accept,
     drop: onDrop,
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -44,8 +44,7 @@ export const Dustbin = memo(function Dustbin({
     accepts: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5, NativeTypes.URL],
     lastDroppedItem: null,
   }
-  console.log("ojo",lastDroppedItem)
-
+  
 
   return (
     <div>
@@ -54,8 +53,8 @@ export const Dustbin = memo(function Dustbin({
             {/*  {isActive
                ? 'Release to drop'
                : `This dustbin accepts: ${accept.join(', ')}`} */}
-
-             {lastDroppedItem && (
+             
+             {lastDroppedItem ? (
                <section>
                   <section className="bg-sky-700 w-[150px]">
               {/*  <p>Last dropped: {JSON.stringify(lastDroppedItem)}</p> */}
@@ -66,6 +65,8 @@ export const Dustbin = memo(function Dustbin({
        
                </section>
               
+             ):(
+              <h2 className='text-black'>{consonante}</h2>
              )}
            </div>
            </div>

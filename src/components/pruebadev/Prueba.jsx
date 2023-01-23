@@ -1,21 +1,26 @@
 import update from 'immutability-helper'
 import { memo, useCallback, useState,useEffect } from 'react'
-
 import { Box } from './Box'
 import { Dustbin } from './Dustbin'
 import { ItemTypes } from './ItemTypes'
-import { Palabras,Palabras3 } from '../../players/palabras'
+import { Palabras,Palabras2 } from '../../players/palabras'
+
+
+
 export const Container = memo(function Container() {
     const container={
         accepts: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5],
         lastDroppedItem: null,
       }
     
-      console.log("Res",Palabras)
-
+    
+ 
+      useEffect(()=>{
+    
+      },[])
 
     
-  const [dustbins, setDustbins] = useState(Palabras3)
+  const [dustbins, setDustbins] = useState(Palabras2)
 
  
   const [boxes] = useState([
@@ -31,27 +36,28 @@ export const Container = memo(function Container() {
     return droppedBoxNames.indexOf(boxName) > -1
   }
   const handleDrop = useCallback(
-    (index,item) => {
+    (index,idItem) => {
      
-      const { vocal} =item
+      const { vocal} =idItem
      
       setDroppedBoxNames(
         update(droppedBoxNames, vocal ? { $push: [vocal] } : { $push: [] }),
       )
-    
-       setDustbins(
-        update(dustbins, {
+      setDustbins(
+        update(dustbins, {palabraIncompleta:{
           [index]: {
             lastDroppedItem: {
-              $set: item,
+              $set:idItem,
             },
           },
+        } 
+         
         }),
       ) 
+      
     },
     [droppedBoxNames, dustbins],
   )
-
 
   return (
     <div>
@@ -62,27 +68,26 @@ export const Container = memo(function Container() {
             alt={alt}
             name={vocal}
             type={type}
-            isDropped={isDropped(vocal)}
+            isDropped={isDropped(vocal,img)}
             key={index}
           />
         ))}
       </div>
 
-      <div style={{ overflow: 'hidden', clear: 'both',display:'flex',flexDirection:'row',gap:'17px' }}>
+      <div style={{ overflow: 'hidden', clear: 'both',display:'flex',flexDirection:'row',gap:'170px' }}>
           
-      {dustbins.map(({ accepts, lastDroppedItem,consonante }, index) => (
-         
-         <Dustbin
-           accept={accepts&&accepts}
-           lastDroppedItem={lastDroppedItem}
-           onDrop={(item) => handleDrop(index, item)}
-           consonante={consonante}
-           key={index}
-         />
-       ))} 
-
-     
-
+       {dustbins.map((e) =>e.palabraIncompleta.map((inc)=>{ 
+           
+          return(
+          <Dustbin
+            accept={inc.consonante!==String&&inc.consonante}
+            lastDroppedItem={inc.lastDroppedItem}
+            onDrop={(idItem)=> handleDrop(inc.index, inc.idItem)}
+            consonante={inc.consonante===String&&inc.consonante}
+            key={inc.index}
+          />
+        )}))}
+        
       </div>
 
       
