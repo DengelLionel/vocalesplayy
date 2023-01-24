@@ -4,18 +4,18 @@ import { memo, useCallback, useState,useEffect } from 'react'
 import { Box } from './Box'
 import { Dustbin } from './Dustbin'
 import { ItemTypes } from './ItemTypes'
-import { Palabras,Palabras3 } from '../../players/palabras'
+import { Palabras1 } from '../../players/palabras'
 export const Container = memo(function Container() {
     const container={
         accepts: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5],
         lastDroppedItem: null,
       }
     
-      console.log("Res",Palabras)
+    
 
 
     
-  const [dustbins, setDustbins] = useState(Palabras3)
+  const [dustbins, setDustbins] = useState(Palabras1)
 
  
   const [boxes] = useState([

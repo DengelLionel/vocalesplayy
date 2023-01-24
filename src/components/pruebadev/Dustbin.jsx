@@ -1,8 +1,9 @@
 import { memo } from 'react'
 import { useDrop } from 'react-dnd'
 
-import { NativeTypes } from 'react-dnd-html5-backend'
-import { ItemTypes } from './ItemTypes'
+import { useEffect } from 'react'
+import { useState } from 'react'
+
 const style = {
   height: '12rem',
   width: '12rem',
@@ -20,11 +21,25 @@ export const Dustbin = memo(function Dustbin({
   accept,
   lastDroppedItem,
   onDrop,
-  src,
-  alt,
   consonante
 }) {
+ const [vocale,setVocale]=useState({})
+
+
+/*   let newState={...vocale}
+
+  setVoc(newState&&newState) */
+
+  useEffect(()=>{
+    if (document.getSelection().rangeCount === 0) {
+      
+    console.log("vocals",vocale)
   
+      return;
+    }
+    
+  },[vocale])
+ 
   const [{ isOver, canDrop }, drop] = useDrop({
     accept:accept,
     drop: onDrop,
@@ -40,25 +55,22 @@ export const Dustbin = memo(function Dustbin({
   } else if (canDrop) {
     backgroundColor = 'darkkhaki'
   }
-  const container={
-    accepts: [ItemTypes.VOCAL1, ItemTypes.VOCAL2,ItemTypes.VOCAL3,ItemTypes.VOCAL4,ItemTypes.VOCAL5, NativeTypes.URL],
-    lastDroppedItem: null,
-  }
   
+
 
   return (
     <div>
      
     <div  ref={drop}  style={{...style, backgroundColor }} data-testid="dustbin">
-            {/*  {isActive
-               ? 'Release to drop'
-               : `This dustbin accepts: ${accept.join(', ')}`} */}
+          
              
              {lastDroppedItem ? (
                <section>
                   <section className="bg-sky-700 w-[150px]">
               {/*  <p>Last dropped: {JSON.stringify(lastDroppedItem)}</p> */}
-               <h1 className='text-[80px] font-extrabold text-white'>{lastDroppedItem.name}</h1>
+               <input disabled={true}  className='text-[80px] bg-transparent w-[80px] font-extrabold text-white' onChange={()=>setVocale({
+                ...vocale,[lastDroppedItem.name]:lastDroppedItem.name}
+               )} value={lastDroppedItem.name} type="text" />
        
                </section>
        
@@ -66,7 +78,7 @@ export const Dustbin = memo(function Dustbin({
                </section>
               
              ):(
-              <h2 className='text-black'>{consonante}</h2>
+              <h2  className='text-black font-extrabold text-[80px]'>{consonante}</h2>
              )}
            </div>
            </div>
@@ -75,12 +87,4 @@ export const Dustbin = memo(function Dustbin({
    
   )
 })
-   /* <div>
-       
-      <section className='flex flex-row justify-center gap-4 mt-[40px]'>
-        {Palabras?.map(consonante=>consonante.palabraIncompleta?.map(incompleta=>
-            incompleta.consonante==="_"?(<p>hola</p>):(<h1 className='text-[100px] text-white font-bold'>{incompleta.consonante}</h1>)
-           
-        ))}
-        </section>
-    </div> */
+   
